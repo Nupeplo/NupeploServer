@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/my")
+@RequestMapping("/api/v1/my")
 @RequiredArgsConstructor
 public class favoriteController {
     private final FavoriteService favoriteService;

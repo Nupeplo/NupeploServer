@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/planet")
+@RequestMapping("/api/v1/planet")
 @RequiredArgsConstructor
 @Tag(name = "행성", description = "행성 관련 정보 입니다,")
 public class PlanetController {
