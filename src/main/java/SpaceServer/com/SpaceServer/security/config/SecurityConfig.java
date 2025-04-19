@@ -39,7 +39,7 @@ public class SecurityConfig {
             "/" ,
             "/api/v1/auth/**",
             "/swagger-ui/**",
-            "/api/planet",
+            "/api/v1/planet/**",
             "/v3/api-docs/**",
             "/app/file/**",
     };

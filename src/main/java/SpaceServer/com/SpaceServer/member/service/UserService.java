@@ -105,9 +105,7 @@ public class UserService {
         KakaoUserDto kakaoUserInfo = getUserProfile(kakaoAccessToken);
         log.info("kakaoUserInfo= {} " , kakaoUserInfo.getUserId());
         // 카카오 아이디 -> 사용자이메일 -> DB 조회
-        String userId = String.valueOf(findByUserId(kakaoUserInfo.getUserId()));
-
-        UserEntity user = findByUserId(userId)
+        UserEntity user = findByUserId(kakaoUserInfo.getUserId())
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
         String accessToken = jwtTokenProvider.generateAccessToken(user.getUserId());
