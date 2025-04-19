@@ -24,7 +24,7 @@ public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 60 * 24; // 24 시간
     private final long REFRESH_TOKEN_EXPIRATION = ACCESS_TOKEN_EXPIRATION * 7; // 7일
-    public static final String ACCESS_TOKEN_HEADER = "AuthToken";  // 헤더 이름 상수
+    public static final String ACCESS_TOKEN_HEADER = "Authorization";  // 헤더 이름 상수
     private final CustomUserDetailsService customUserDetailsService;
 
     /**
@@ -65,17 +65,6 @@ public class JwtTokenProvider {
 
     }
 
-    /**
-     * 토큰에서 userId(subject) 추출
-     */
-    public String getUserIdFromToken(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(jwtProperties.getSecret())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-        return claims.getSubject();
-    }
     /**
      * 리프레시 토큰의 만료 일자 반환
      */
