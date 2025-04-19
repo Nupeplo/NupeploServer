@@ -39,16 +39,15 @@ jobs:
           echo "${{ secrets.KEY }}" | base64 -d > key.pem
           chmod 600 key.pem
 
-      - name: Copy deploy script and env file to EC2
+      - name: Copy .env file to EC2
         run: |
           echo "${{ secrets.ENV }}" | base64 -d > .env
           scp -i key.pem -o StrictHostKeyChecking=no .env ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ec2-user/.env
-          scp -i key.pem -o StrictHostKeyChecking=no deploy.sh ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ec2-user/deploy.sh
 
-      - name: SSH into EC2 and deploy
+      - name: SSH into EC2 and deploy without script
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
-            echo "Docker 컨테이너 재시작 중..."
+            echo "[🛠️] Docker 컨테이너 재시작 중..."
             docker stop spacex || true
             docker rm spacex || true
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/spacex-server
@@ -57,5 +56,5 @@ jobs:
               --env-file /home/ec2-user/.env \
               -p 8080:8080 \
               ${{ secrets.DOCKERHUB_USERNAME }}/spacex-server
-            echo "배포 완료!"
+            echo "[✅] 배포 완료!"
           EOF
