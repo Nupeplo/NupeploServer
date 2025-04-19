@@ -12,7 +12,6 @@ public class StarsDetailResponse {
     private Long starsId;
     private String name;
     private String imageUrl;
-    private String majorStar;
     private String description;
     private Boolean isLiked;
 }

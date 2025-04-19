@@ -64,7 +64,14 @@ public class JwtTokenProvider {
                 .compact();
 
     }
-
+    public String getUserIdFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(jwtProperties.getSecret())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
+    }
     /**
      * 리프레시 토큰의 만료 일자 반환
      */
@@ -93,16 +100,21 @@ public class JwtTokenProvider {
     /**
      * HTTP 요청 헤더에서 토큰 추출..
      */
-    public String getHeaderToken(HttpServletRequest request, String tokenHeader) {
-        String token = request.getHeader(tokenHeader);
-
-        if (token == null || token.isBlank()) {
-            log.error("{} 헤더가 요청에 포함되지 않았습니다.", tokenHeader);
-            throw new RuntimeException("잘못된 토큰 입니다.");
+    public String getHeaderToken(HttpServletRequest request, String headerName) {
+        String bearerToken = request.getHeader(headerName);
+        if (bearerToken == null || !bearerToken.startsWith("Bearer ")) {
+            //throw new CustomException(ErrorCode.INVALID_TOKEN); // 사용자 정의 예외
+            log.info("잘못된 토큰");
         }
 
-//        log.info("수신한 토큰: {}", token);
-        return token.trim(); // 순수 토큰 반환
+        String token = bearerToken.replace("Bearer ", "").trim();
+
+        if (token.isBlank()) {
+            //throw new CustomException(ErrorCode.INVALID_TOKEN);
+            log.info("비어있음");
+        }
+
+        return token;
     }
 
     /**
