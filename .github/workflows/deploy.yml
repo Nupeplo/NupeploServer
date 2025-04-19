@@ -25,7 +25,6 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew bootJar
-      # ✅ 추가 끝
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
@@ -48,4 +47,15 @@ jobs:
 
       - name: SSH into EC2 and deploy
         run: |
-          ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} "bash /home/ec2-user/deploy.sh"
+          ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
+            echo "Docker 컨테이너 재시작 중..."
+            docker stop spacex || true
+            docker rm spacex || true
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/spacex-server
+            docker run -d \
+              --name spacex \
+              --env-file /home/ec2-user/.env \
+              -p 8080:8080 \
+              ${{ secrets.DOCKERHUB_USERNAME }}/spacex-server
+            echo "배포 완료!"
+          EOF
