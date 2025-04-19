@@ -75,7 +75,7 @@ public class StarsService {
         StarsEntity constellation = starsRepository.findById(starsId)
                 .orElseThrow(() -> new RuntimeException("해당 별자리를 찾을 수 없습니다."));
 
-        boolean isLiked = favoriteRepository.existsByUserIdAndConstellationIdAndIsLikedTrue(userId, starsId);
+        boolean isLiked = favoriteRepository.existsByUserIdAndStarsIdAndIsLikedTrue(userId, starsId);
 
         return StarsDetailResponse.builder()
                 .starsId(constellation.getStarsId())
