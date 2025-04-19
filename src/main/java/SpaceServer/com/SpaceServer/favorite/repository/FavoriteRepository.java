@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FavoriteRepository extends JpaRepository<FavoriteEntity,Long> {
     /**
@@ -17,6 +18,8 @@ public interface FavoriteRepository extends JpaRepository<FavoriteEntity,Long> {
      */
     @Query("SELECT f.starsId FROM FavoriteEntity f WHERE f.userId = :userId AND f.isLiked = true")
     List<Long> findConstellationIdByUserId(@Param("userId") String userId);
+
+    Optional<FavoriteEntity> findByUserIdAndStarsId(String userId, Long starsId);
 
 
 }

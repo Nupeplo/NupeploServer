@@ -1,5 +1,6 @@
 package SpaceServer.com.SpaceServer.stars.service;
 
+import SpaceServer.com.SpaceServer.favorite.entity.FavoriteEntity;
 import SpaceServer.com.SpaceServer.favorite.repository.FavoriteRepository;
 import SpaceServer.com.SpaceServer.stars.dto.response.StarsDetailResponse;
 import SpaceServer.com.SpaceServer.stars.dto.response.StarsListResponse;
@@ -12,8 +13,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -84,6 +87,23 @@ public class StarsService {
                 .description(constellation.getDescription())
                 .isLiked(isLiked)
                 .build();
+    }
+    /**
+     * 즐겨찾기
+     */
+    @Transactional
+    public void toggleFavorite(String userId, Long starsId) {
+        Optional<FavoriteEntity> favoriteOpt = favoriteRepository.findByUserIdAndStarsId(userId, starsId);
+
+        if (favoriteOpt.isPresent()) {
+            favoriteRepository.delete(favoriteOpt.get()); // 이미 찜했으면 제거
+        } else {
+            FavoriteEntity favorite = FavoriteEntity.builder()
+                    .userId(userId)
+                    .starsId(starsId)
+                    .build();
+            favoriteRepository.save(favorite); // 없으면 추가
+        }
     }
 
 
