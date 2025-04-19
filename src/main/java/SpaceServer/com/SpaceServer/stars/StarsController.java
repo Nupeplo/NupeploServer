@@ -25,7 +25,7 @@ public class StarsController {
      * 별자리 리스트 (키워드 검색 포함, 12개 페이징)
      */
     @Operation(summary = "별자리 전체 리스트", description = "12개 단위로 전체 별자리 목록 페이징")
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<Page<StarsListResponse>> getStarsList(
             @RequestHeader("Authorization") String accessToken,
             @RequestParam(defaultValue = "0") int page
@@ -55,7 +55,7 @@ public class StarsController {
      * 별자리 상세 조회
      */
     @Operation(summary = "별자리 상세 조회", description = "별자리 ID로 상세 정보 + 찜 여부 반환")
-    @GetMapping("/{starsId}")
+    @GetMapping("/{id}")
     public ResponseEntity<StarsDetailResponse> getStarsDetail(
             @RequestHeader("Authorization") String accessToken,
             @PathVariable Long id
@@ -76,7 +76,7 @@ public class StarsController {
     ) {
         String pureToken = accessToken.replace("Bearer ", "");
         String userId = jwtTokenProvider.getUserIdFromToken(pureToken);
-        //starsService.toggleFavorite(userId, id);
+        starsService.toggleFavorite(userId, id);
         return ResponseEntity.ok().build();
     }
 
