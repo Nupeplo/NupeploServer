@@ -18,5 +18,5 @@ public class PlanetDetailResponse {
     private Double surfaceTemperature;
     private String rotationInfo;
     private String revolution;
-    private List<satelliteResponse> satellites; // 위성은 리스트
+    private List<String> satellites; // 위성은 리스트
 }

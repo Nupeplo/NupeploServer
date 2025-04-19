@@ -82,7 +82,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("https://web.spacex.n-e.kr", "http://localhost:3000"));
+        config.setAllowedOrigins(List.of("https://spacex.n-e.kr", "http://localhost:3000"));
         config.setAllowedMethods(List.of("DELETE", "GET", "POST", "PUT", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // JWT/쿠키 전달 시 필요
