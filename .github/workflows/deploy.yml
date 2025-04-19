@@ -13,6 +13,20 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
+      # 추가 시작
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew bootJar
+      # ✅ 추가 끝
+
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
@@ -23,7 +37,6 @@ jobs:
 
       - name: Create SSH key file
         run: |
-          run: |
           echo "${{ secrets.KEY }}" | base64 -d > key.pem
           chmod 600 key.pem
 
