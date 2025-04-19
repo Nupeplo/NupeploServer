@@ -4,6 +4,7 @@ import SpaceServer.com.SpaceServer.stars.dto.response.StarsDetailResponse;
 import SpaceServer.com.SpaceServer.stars.dto.response.StarsListResponse;
 import SpaceServer.com.SpaceServer.stars.service.StarsService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/stars")
 @RestController
 @AllArgsConstructor
+@Tag(name = "별자리", description = "별자리 입니다.")
 public class StarsController {
     private final StarsService starsService;
 

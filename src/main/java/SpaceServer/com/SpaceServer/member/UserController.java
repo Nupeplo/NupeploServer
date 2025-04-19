@@ -6,6 +6,7 @@ import SpaceServer.com.SpaceServer.member.dto.TokenRequest;
 import SpaceServer.com.SpaceServer.member.dto.TokenResponse;
 import SpaceServer.com.SpaceServer.member.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 @RestController
 @AllArgsConstructor
+@Tag(name = "Auth", description = "사용자 로그인")
 public class UserController {
 
     private final UserService userService;

@@ -17,9 +17,6 @@ public class PlanetEntity {
     @Column(name = "name", nullable = false)
     private String name; // 행성 이름
 
-    @Column(name = "image_url", nullable = false)
-    private String imageUrl; // 행성 이미지 URL
-
     @Column(name = "size", nullable = false)
     private Double size; // 행성 크기
 
@@ -32,11 +29,8 @@ public class PlanetEntity {
     @Column(name = "surface_temperature", nullable = false)
     private Double surfaceTemperature; // 표면 온도
 
-    @Column(name = "rotation", nullable = false)
-    private String rotation; // 자전
-
-    @Column(name = "axial_tilt", nullable = false)
-    private String axialTilt; // 자전축
+    @Column(name = "rotation_info", nullable = false)
+    private String rotationInfo; // 자전 및 자전축 정보
 
     @Column(name = "revolution", nullable = false)
     private String revolution; // 공전
@@ -57,19 +51,17 @@ public class PlanetEntity {
     private String satellite5; // 위성 5 (nullable)
 
     @Builder
-    public PlanetEntity(String name, String imageUrl, Double size, Double mass,
+    public PlanetEntity(String name, Double size, Double mass,
                         Double distanceFromSun, Double surfaceTemperature,
-                        String rotation, String axialTilt, String revolution,
+                        String rotationInfo, String revolution,
                         String satellite1, String satellite2, String satellite3,
                         String satellite4, String satellite5) {
         this.name = name;
-        this.imageUrl = imageUrl;
         this.size = size;
         this.mass = mass;
         this.distanceFromSun = distanceFromSun;
         this.surfaceTemperature = surfaceTemperature;
-        this.rotation = rotation;
-        this.axialTilt = axialTilt;
+        this.rotationInfo = rotationInfo;
         this.revolution = revolution;
         this.satellite1 = satellite1;
         this.satellite2 = satellite2;
