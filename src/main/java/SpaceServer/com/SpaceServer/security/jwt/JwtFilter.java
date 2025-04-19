@@ -29,7 +29,7 @@ public class JwtFilter extends OncePerRequestFilter {
         return path.equals("/")  // ✅ 홈 화면 추가
                 || path.equals("/api/v1/auth/login")
                 || path.equals("/api/v1/planet")
-                || path.equals("/api/planet")
+                || path.equals("/api/v1/planet/{planetId}")
                 || path.startsWith("/api/v1/auth")
                 || path.startsWith("/swagger-ui")
                 || path.startsWith("/v3/api-docs");
