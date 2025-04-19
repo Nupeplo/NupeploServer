@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: SpaceServer
+
+  profiles:
+    active: dev

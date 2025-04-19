@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: RollinMomentServer
+
+  # .env import
+  config:
+    import: optional:file:.env[.yml]
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+
+  oauth2:
+    kakao:
+      id: ${KAKAO_ID}
+      admin-key: ${KAKAO_ADMIN}
+      #redirect-uri: https://spacex.n-e.kr/api/v1/auth/signin
+
+
+  jwt:
+    hashcode: ${JWT_SECRET}
+
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: true
+  ai:
+    openai:
+      api-key: ${Ai}
+      chat:
+        options:
+          model: gpt-3.5-turbo
+
