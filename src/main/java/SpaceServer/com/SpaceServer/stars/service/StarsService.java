@@ -81,7 +81,6 @@ public class StarsService {
                 .starsId(constellation.getStarsId())
                 .name(constellation.getName())
                 .imageUrl(constellation.getImageUrl())
-                .majorStar(constellation.getMajorStar())
                 .description(constellation.getDescription())
                 .isLiked(isLiked)
                 .build();

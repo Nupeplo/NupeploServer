@@ -21,18 +21,15 @@ public class StarsEntity {
     @Column(name = "image_url", nullable = false)
     private String imageUrl; // 별자리 이미지 URL
 
-    @Column(name = "major_star", nullable = false)
-    private String majorStar; // 주요 별 1
 
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description; // 별자리 설명 (TEXT)
 
 
     @Builder
-    public StarsEntity(String name, String imageUrl, String majorStar, String description) {
+    public StarsEntity(String name, String imageUrl, String description) {
         this.name = name;
         this.imageUrl = imageUrl;
-        this.majorStar = majorStar;
         this.description = description;
     }
 }
