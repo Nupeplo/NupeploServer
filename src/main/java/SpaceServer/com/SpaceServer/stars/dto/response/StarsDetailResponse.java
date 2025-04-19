@@ -12,9 +12,7 @@ public class StarsDetailResponse {
     private Long starsId;
     private String name;
     private String imageUrl;
-    private String majorStar1;
-    private String majorStar2;
-    private String majorStar3;
+    private String majorStar;
     private String description;
     private Boolean isLiked;
 }

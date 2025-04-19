@@ -35,27 +35,30 @@ public class PlanetService {
     /**
      * 행성 상세페이지 보여주기
      */
+    /**
+     * 행성 상세페이지 보여주기
+     */
     public PlanetDetailResponse getPlanetDetail(Long planetId) {
         PlanetEntity planet = planetRepository.findById(planetId)
                 .orElseThrow(() -> new RuntimeException("해당 행성이 존재하지 않습니다."));
 
         return PlanetDetailResponse.builder()
                 .name(planet.getName())
-                .imageUrl(planet.getImageUrl())
                 .size(planet.getSize())
                 .mass(planet.getMass())
                 .distanceFromSun(planet.getDistanceFromSun())
                 .surfaceTemperature(planet.getSurfaceTemperature())
-                .rotation(planet.getRotation())
-                .axialTilt(planet.getAxialTilt())
+                .rotationInfo(planet.getRotationInfo())
                 .revolution(planet.getRevolution())
                 .satellites(Stream.of(
-                        planet.getSatellite1(),
-                        planet.getSatellite2(),
-                        planet.getSatellite3(),
-                        planet.getSatellite4(),
-                        planet.getSatellite5()
-                ).filter(Objects::nonNull).toList())
+                                planet.getSatellite1(),
+                                planet.getSatellite2(),
+                                planet.getSatellite3(),
+                                planet.getSatellite4(),
+                                planet.getSatellite5()
+                        )
+                        .filter(Objects::nonNull)
+                        .toList())
                 .build();
     }
 }
