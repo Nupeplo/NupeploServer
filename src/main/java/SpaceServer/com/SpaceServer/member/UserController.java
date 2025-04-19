@@ -45,7 +45,7 @@ public class UserController {
 
             if (exists) {
                 log.info("기존 회원입니다. 로그인 처리 진행");
-                tokenResponse = userService.loginKakao(kakaoUser.getUserId());
+                tokenResponse = userService.loginKakao(accessToken);
             } else {
                 log.info("신규 회원입니다. 회원가입 진행");
                 tokenResponse = userService.processLogin(kakaoUser);
