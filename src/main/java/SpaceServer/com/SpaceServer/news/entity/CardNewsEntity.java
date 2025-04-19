@@ -6,14 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "card_news")
+@Table(name = "news")
 @Getter
 @NoArgsConstructor
 public class CardNewsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "card_news_id")
+    @Column(name = "news_id")
     private Long cardNewsId; // 카드 뉴스 ID
 
     @Column(name = "title", nullable = false)
