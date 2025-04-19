@@ -12,13 +12,11 @@ import java.util.List;
  */
 public class PlanetDetailResponse {
     private String name; // 행성이름
-    private String imageUrl; // 행성 url
     private Double size; // 행성 사이즈
     private Double mass;
     private Double distanceFromSun;
     private Double surfaceTemperature;
-    private String rotation;
-    private String axialTilt;
+    private String rotationInfo;
     private String revolution;
-    private List<String> satellites;
+    private List<satelliteResponse> satellites; // 위성은 리스트
 }

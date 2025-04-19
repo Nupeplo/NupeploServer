@@ -5,6 +5,7 @@ import SpaceServer.com.SpaceServer.planet.dto.PlanetDetailResponse;
 import SpaceServer.com.SpaceServer.planet.dto.PlanetListResponse;
 import SpaceServer.com.SpaceServer.planet.service.PlanetService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/planet")
 @RequiredArgsConstructor
+@Tag(name = "행성", description = "행성 관련 정보 입니다,")
 public class PlanetController {
 
     private final PlanetService planetService;
