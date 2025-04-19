@@ -101,6 +101,7 @@ public class StarsService {
             FavoriteEntity favorite = FavoriteEntity.builder()
                     .userId(userId)
                     .starsId(starsId)
+                    .isLiked(true)
                     .build();
             favoriteRepository.save(favorite); // 없으면 추가
         }

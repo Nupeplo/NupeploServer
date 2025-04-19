@@ -27,7 +27,7 @@ public class FavoriteEntity {
     public FavoriteEntity(String userId, Long starsId, Boolean isLiked) {
         this.userId = userId;
         this.starsId = starsId;
-        this.isLiked = isLiked;
+        this.isLiked = isLiked != null ? isLiked : true; // 기본값 처리
     }
 
 }
