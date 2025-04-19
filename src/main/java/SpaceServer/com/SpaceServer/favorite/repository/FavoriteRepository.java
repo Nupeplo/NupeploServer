@@ -11,8 +11,7 @@ public interface FavoriteRepository extends JpaRepository<FavoriteEntity,Long> {
     /**
      * 해당 별자리에 해당 사용자가 찜을 한 경우
      */
-    boolean existsByUserIdAndConstellationIdAndIsLikedTrue(String userId, Long starsId);
-
+    boolean existsByUserIdAndStarsIdAndIsLikedTrue(String userId, Long starsId);
     /**
      * 해당 사용자가 별자리 리스트에 찜을 누른 경우
      */

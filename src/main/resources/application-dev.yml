@@ -7,7 +7,7 @@ spring:
 
   # .env import
   config:
-    import: optional:file:.env[.yml]
+    import: optional:file:.env[.properties]
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
