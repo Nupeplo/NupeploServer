@@ -43,7 +43,7 @@ public class UserService {
                     "https://kapi.kakao.com/v2/user/me",
                     HttpMethod.GET,
                     request,
-                    new ParameterizedTypeReference<Map<String, Object>>() {}
+                    new ParameterizedTypeReference<>() {}
             );
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
