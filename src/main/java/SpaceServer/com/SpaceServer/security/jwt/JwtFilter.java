@@ -57,7 +57,12 @@ public class JwtFilter extends OncePerRequestFilter {
         try {
             // 헤더에서 Access Token 추출
             String accessToken = jwtTokenProvider.getHeaderToken(request, JwtTokenProvider.ACCESS_TOKEN_HEADER);
-
+            // accessToken이 없을 경우 → 로그 찍고 종료
+            if (accessToken == null) {
+                log.warn("Authorization 헤더가 없거나 형식이 잘못됐습니다.");
+                handleExpiredAccessToken(response); // 클라이언트에 만료 알림
+                return;
+            }
             // Access Token 이 존재할 경우
             if (accessToken != null) {
                 try {

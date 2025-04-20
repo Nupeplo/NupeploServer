@@ -102,16 +102,22 @@ public class JwtTokenProvider {
      */
     public String getHeaderToken(HttpServletRequest request, String headerName) {
         String bearerToken = request.getHeader(headerName);
-        if (bearerToken == null || !bearerToken.startsWith("Bearer ")) {
-            //throw new CustomException(ErrorCode.INVALID_TOKEN); // 사용자 정의 예외
-            log.info("잘못된 토큰");
+
+        if (bearerToken == null) {
+            log.warn("Authorization 헤더가 없음");
+            return null;
+        }
+
+        if (!bearerToken.startsWith("Bearer ")) {
+            log.warn("Bearer 토큰 형식이 아님: {}", bearerToken);
+            return null;
         }
 
         String token = bearerToken.replace("Bearer ", "").trim();
 
         if (token.isBlank()) {
-            //throw new CustomException(ErrorCode.INVALID_TOKEN);
-            log.info("비어있음");
+            log.warn("토큰이 비어있음");
+            return null;
         }
 
         return token;
