@@ -44,6 +44,7 @@ public class SecurityConfig {
             "/api/v1/planet/**",
             "/v3/api-docs/**",
             "/app/file/**",
+            "/api/v1/auth/login/simple"
     };
 
     @Bean

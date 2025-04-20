@@ -1,6 +1,7 @@
 package SpaceServer.com.SpaceServer.member.service;
 
 import SpaceServer.com.SpaceServer.image.ProfileImageUtil;
+import SpaceServer.com.SpaceServer.member.dto.SimpleLoginRequest;
 import SpaceServer.com.SpaceServer.security.jwt.JwtTokenProvider;
 import SpaceServer.com.SpaceServer.member.dto.KakaoUserDto;
 import SpaceServer.com.SpaceServer.member.dto.TokenResponse;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
@@ -96,6 +98,29 @@ public class UserService {
         //  JWT 생성
         String accessToken = jwtTokenProvider.generateAccessToken(userEntity.getUserId());
         String refreshToken = jwtTokenProvider.generateRefreshToken(userEntity.getUserId());
+        return new TokenResponse(accessToken, refreshToken);
+    }
+    /**
+     * 간편 회원가입
+     */
+    @Transactional
+    public TokenResponse processSimpleLogin(SimpleLoginRequest request) {
+        // 이미 회원이면 가져오고
+        UserEntity user = userRepository.findByUserId(request.getUserId())
+                .orElseGet(() -> {
+                    // 신규 유저면 자동 회원가입
+                    String profileUrl = profileImageUtil.getRandomProfileUrl();
+                    return userRepository.save(UserEntity.builder()
+                            .userId(request.getUserId())
+                            .nickname(request.getNickname())
+                            .profileImageUrl(profileUrl)
+                            .build());
+                });
+
+        // JWT 발급
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getUserId());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getUserId());
+
         return new TokenResponse(accessToken, refreshToken);
     }
     /**
