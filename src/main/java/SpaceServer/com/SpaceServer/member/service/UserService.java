@@ -103,26 +103,26 @@ public class UserService {
     /**
      * 간편 회원가입
      */
-    @Transactional
-    public TokenResponse processSimpleLogin(SimpleLoginRequest request) {
-        // 이미 회원이면 가져오고
-        UserEntity user = userRepository.findByUserId(request.getUserId())
-                .orElseGet(() -> {
-                    // 신규 유저면 자동 회원가입
-                    String profileUrl = profileImageUtil.getRandomProfileUrl();
-                    return userRepository.save(UserEntity.builder()
-                            .userId(request.getUserId())
-                            .nickname(request.getNickname())
-                            .profileImageUrl(profileUrl)
-                            .build());
-                });
-
-        // JWT 발급
-        String accessToken = jwtTokenProvider.generateAccessToken(user.getUserId());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getUserId());
-
-        return new TokenResponse(accessToken, refreshToken);
-    }
+//    @Transactional
+//    public TokenResponse processSimpleLogin(SimpleLoginRequest request) {
+//        // 이미 회원이면 가져오고
+//        UserEntity user = userRepository.findByUserId(request.getUserId())
+//                .orElseGet(() -> {
+//                    // 신규 유저면 자동 회원가입
+//                    String profileUrl = profileImageUtil.getRandomProfileUrl();
+//                    return userRepository.save(UserEntity.builder()
+//                            .userId(request.getUserId())
+//                            .nickname(request.getNickname())
+//                            .profileImageUrl(profileUrl)
+//                            .build());
+//                });
+//
+//        // JWT 발급
+//        String accessToken = jwtTokenProvider.generateAccessToken(user.getUserId());
+//        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getUserId());
+//
+//        return new TokenResponse(accessToken, refreshToken);
+//    }
     /**
      * 로그인
      */
