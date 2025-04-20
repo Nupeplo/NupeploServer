@@ -30,7 +30,7 @@ public class StarsService {
      * 별자리 리스트 페이지 페이징 12개
      */
     public Page<StarsListResponse> getStarsList(int page, String userId) {
-        Pageable pageable = PageRequest.of(page, 12, Sort.by("name").ascending());
+        Pageable pageable = PageRequest.of(page, 12, Sort.by("id").ascending());
 
         // 1. 전체 별자리 페이지 조회
         Page<StarsEntity> pageResult = starsRepository.findAll(pageable);
@@ -52,7 +52,7 @@ public class StarsService {
      * 별자리 제목 검색
      */
     public Page<StarsListResponse> searchStarsByKeyword(String keyword, int page, String userId) {
-        Pageable pageable = PageRequest.of(page, 12, Sort.by("name").ascending());
+        Pageable pageable = PageRequest.of(page, 12, Sort.by("id").ascending());
 
         // 제목 키워드로 별자리 검색
         Page<StarsEntity> pageResult = starsRepository.findByNameContainingIgnoreCase(keyword, pageable);
