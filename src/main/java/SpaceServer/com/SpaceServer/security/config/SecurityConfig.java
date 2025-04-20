@@ -86,7 +86,7 @@ public class SecurityConfig {
 
         // ✅ 허용할 Origin 명시 (프론트 배포 주소 포함)
         config.setAllowedOrigins(List.of(
-                "https://nupeplo-front.vercel.app"
+                "https://nupeplo-front.vercel.app/"
         ));
 
         // ✅ 허용할 HTTP Method
