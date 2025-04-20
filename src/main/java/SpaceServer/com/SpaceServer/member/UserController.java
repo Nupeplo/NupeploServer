@@ -2,6 +2,7 @@ package SpaceServer.com.SpaceServer.member;
 
 
 import SpaceServer.com.SpaceServer.member.dto.KakaoUserDto;
+import SpaceServer.com.SpaceServer.member.dto.SimpleLoginRequest;
 import SpaceServer.com.SpaceServer.member.dto.TokenRequest;
 import SpaceServer.com.SpaceServer.member.dto.TokenResponse;
 import SpaceServer.com.SpaceServer.member.service.UserService;
@@ -25,7 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-
+    @Operation(summary = "간단 회원가입 및 로그인", description = "userId와 nickname만 받아 처리")
+    @PostMapping("/login/simple")
+    public ResponseEntity<TokenResponse> simpleLogin(@RequestBody SimpleLoginRequest request) {
+        TokenResponse tokens = userService.processSimpleLogin(request);
+        return ResponseEntity.ok(tokens);
+    }
     /**
      * 카카오로 회원가입 및 로그인
      */
