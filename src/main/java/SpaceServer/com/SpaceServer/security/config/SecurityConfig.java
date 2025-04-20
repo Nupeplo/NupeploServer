@@ -82,13 +82,24 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("https://spacex.n-e.kr", "http://localhost:3000"));
+        // ✅ 허용할 Origin 명시 (프론트 배포 주소 포함)
+        config.setAllowedOrigins(List.of(
+                "https://spacex.n-e.kr",
+                "https://nupeplo-front.vercel.app"
+        ));
+
+        // ✅ 허용할 HTTP Method
         config.setAllowedMethods(List.of("DELETE", "GET", "POST", "PUT", "OPTIONS"));
+
+        // ✅ 모든 헤더 허용 (Authorization 등 포함)
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true); // JWT/쿠키 전달 시 필요
+
+        // ✅ 인증 정보 허용 (토큰, 쿠키 등)
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config); // 모든 경로에 적용
+        source.registerCorsConfiguration("/**", config); // 전체 경로에 적용
+
         return source;
     }
 }
