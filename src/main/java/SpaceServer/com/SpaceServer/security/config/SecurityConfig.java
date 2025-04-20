@@ -86,7 +86,6 @@ public class SecurityConfig {
 
         // ✅ 허용할 Origin 명시 (프론트 배포 주소 포함)
         config.setAllowedOrigins(List.of(
-                "https://spacex.n-e.kr",
                 "https://nupeplo-front.vercel.app"
         ));
 
