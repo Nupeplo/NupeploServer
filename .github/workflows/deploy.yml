@@ -1,0 +1,60 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # 추가 시작
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew bootJar
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/spacex-server .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/spacex-server
+
+      - name: Create SSH key file
+        run: |
+          echo "${{ secrets.KEY }}" | base64 -d > key.pem
+          chmod 600 key.pem
+
+      - name: Copy .env file to EC2
+        run: |
+          echo "${{ secrets.ENV }}" | base64 -d > .env
+          scp -i key.pem -o StrictHostKeyChecking=no .env ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ec2-user/.env
+
+      - name: SSH into EC2 and deploy without script
+        run: |
+          ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
+            echo "[🛠️] Docker 컨테이너 재시작 중..."
+            docker stop spacex || true
+            docker rm spacex || true
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/spacex-server
+            docker run -d \
+              --name spacex \
+              --env-file /home/ec2-user/.env \
+              -p 8080:8080 \
+              ${{ secrets.DOCKERHUB_USERNAME }}/spacex-server
+            echo "[✅] 배포 완료!"
+          EOF
