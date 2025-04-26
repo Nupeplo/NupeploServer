@@ -4,17 +4,23 @@ server:
 spring:
   application:
     name: RollinMomentServer
-
+  cloud:
+    function:
+      scan:
+        enabled: false
   # .env import
   config:
     import: optional:file:.env[.properties]
 
-  datasource:
+  datasource: # MariaDB용 설정
     driver-class-name: org.mariadb.jdbc.Driver
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
 
+  data:
+    mongodb: #  MongoDB용 설정 (주의! datasource 아님)
+      uri: ${MONGODB_URI}
 
   oauth2:
     kakao:
