@@ -5,7 +5,10 @@ Nupeplo 전체 프로젝트에 대한 설명은 [여기서](https://github.com/N
 </br>
 
 ## 📌 담당한 백엔드 주요 구현 기능
+</br>
 
+![과학해커톤 drawio](https://github.com/user-attachments/assets/8ce33aed-bb2b-416e-88e5-c0131b7634fb)
+</br>
 - **OAuth 기반 카카오 소셜 로그인 및 사용자 인증 API 개발**
   - 사용자 정보 연동을 포함한 회원 가입 및 로그인 기능 개발
   - JWT 토큰 발급 및 인증 처리
@@ -28,3 +31,6 @@ Nupeplo 전체 프로젝트에 대한 설명은 [여기서](https://github.com/N
 - **AWS EC2 + RDS 기반 서비스 배포 환경 구축**
   - EC2 인스턴스를 이용한 백엔드 서버 배포
   - RDS를 활용한 데이터베이스 운영 및 관리
+
+
+  
